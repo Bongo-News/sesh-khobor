@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শেষ খবর - বাংলার প্রাণের সংবাদ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        :root {
+            --primary: #1a73e8;
+            --secondary: #0d47a1;
+            --accent: #e91e63;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --border: #dadce0;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.7;
+            direction: ltr;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: #ffd700;
+        }
+        
+        .search-container {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .search-container input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-container button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 0 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .search-container button:hover {
+            background: #c2185b;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: opacity 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover::after, nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .breaking-news {
+            background: #ff5722;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .breaking-news span {
+            background: #d84315;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .news-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .widget {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .widget-header {
+            padding: 15px 20px;
+            background: var(--secondary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .widget-content {
+            padding: 20px;
+        }
+        
+        .archive-list {
+            list-style: none;
+        }
+        
+        .archive-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .archive-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .archive-list a {
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            transition: color 0.3s;
+        }
+        
+        .archive-list a:hover {
+            color: var(--primary);
+        }
+        
+        .archive-list span {
+            background: var(--light);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .category:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, 
+        .form-group select,
+        .form-group textarea {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .upload-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        .upload-btn:hover {
+            background: var(--secondary);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #3c4043;
+            color: #9aa0a6;
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container {
+                max-width: 100%;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Bangla specific styles */
+        .bangla-text {
+            font-family: 'Hind Siliguri', sans-serif;
+            line-height: 1.8;
+        }
+        
+        .bangla-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        .bangla-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Google Integration Panel */
+        .google-integration {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .integration-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .integration-status {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .status-name {
+            font-weight: 600;
+        }
+        
+        .status-value {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .connected {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .not-connected {
+            background: #f44336;
+            color: white;
+        }
+        
+        /* Confirmation */
+        .confirmation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2000;
+            display: none;
+        }
+        
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <span class="bangla-text">শেষ খবর</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="খবর খুঁজুন...">
+                <button id="search-btn"><i class="fas fa-search"></i> অনুসন্ধান</button>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">মূল পাতা</a></li>
+                    <li><a href="#">সর্বশেষ</a></li>
+                    <li><a href="#">রাজনীতি</a></li>
+                    <li><a href="#">খেলাধুলা</a></li>
+                    <li><a href="#">বিনোদন</a></li>
+                    <li><a href="#">আন্তর্জাতিক</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <main class="main-content">
+            <div class="section-header">
+                <div class="section-title bangla-text">সর্বশেষ খবর</div>
+                <div class="section-actions">
+                    <button id="refresh-news"><i class="fas fa-sync-alt"></i> রিফ্রেশ করুন</button>
+                </div>
+            </div>
+            
+            <div class="breaking-news bangla-text">
+                <i class="fas fa-bolt"></i>
+                <span>ব্রেকিং নিউজ</span>
+                <div class="bangla-text" id="breaking-news-text">গুগল সংযোগ সক্রিয়, সর্বশেষ খবর লোড হচ্ছে...</div>
+            </div>
+            
+            <div class="news-grid" id="news-grid">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    <p class="bangla-text">খবরগুলি লোড হচ্ছে...</p>
+                </div>
+            </div>
+            
+            <div class="google-integration">
+                <h3 class="integration-title bangla-text">গুগল সংযোগ স্ট্যাটাস</h3>
+                <div class="integration-status">
+                    <div class="status-item">
+                        <div class="status-name bangla-text">গুগল ফর্ম</div>
+                        <div class="status-value connected bangla-text">সংযুক্ত</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-name bangla-text">গুগল শীট</div>
+                        <div class="status-value connected bangla-text">সংযুক্ত</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-name bangla-text">গুগল স্ক্রিপ্ট</div>
+                        <div class="status-value connected bangla-text">সক্রিয়</div>
+                    </div>
+                    <div class="status-item">
+                        <div class="status-name bangla-text">গুগল ড্রাইভ</div>
+                        <div class="status-value connected bangla-text">সংযুক্ত</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="widget">
+                <div class="widget-header bangla-text">খবর জমা দিন</div>
+                <div class="widget-content">
+                    <form id="news-form" class="upload-form">
+                        <div class="form-group">
+                            <label for="title" class="bangla-text">শিরোনাম</label>
+                            <input type="text" id="title" placeholder="খবরের শিরোনাম লিখুন" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="category" class="bangla-text">বিভাগ</label>
+                            <select id="category" required>
+                                <option value="">বিভাগ নির্বাচন করুন</option>
+                                <option value="রাজনীতি">রাজনীতি</option>
+                                <option value="খেলাধুলা">খেলাধুলা</option>
+                                <option value="বিনোদন">বিনোদন</option>
+                                <option value="আন্তর্জাতিক">আন্তর্জাতিক</option>
+                                <option value="অর্থনীতি">অর্থনীতি</option>
+                                <option value="প্রযুক্তি">প্রযুক্তি</option>
+                                <option value="স্বাস্থ্য">স্বাস্থ্য</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="excerpt" class="bangla-text">সংক্ষিপ্ত বিবরণ</label>
+                            <textarea id="excerpt" placeholder="খবরের সংক্ষিপ্ত বিবরণ লিখুন..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content" class="bangla-text">বিস্তারিত</label>
+                            <textarea id="content" placeholder="খবরের বিস্তারিত লিখুন..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="image-url" class="bangla-text">ছবির URL</label>
+                            <input type="text" id="image-url" placeholder="ছবির লিংক লিখুন (ঐচ্ছিক)">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="publisher" class="bangla-text">প্রকাশকের নাম</label>
+                            <input type="text" id="publisher" placeholder="আপনার নাম লিখুন" required>
+                        </div>
+                        
+                        <button type="submit" class="upload-btn bangla-text">
+                            <i class="fas fa-upload"></i> খবর জমা দিন
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="widget">
+                <div class="widget-header bangla-text">গুগল সংযোগ নির্দেশিকা</div>
+                <div class="widget-content">
+                    <ol class="bangla-text" style="padding-left: 20px;">
+                        <li>গুগল ফর্ম তৈরি করা হয়েছে</li>
+                        <li>গুগল শীট সংযুক্ত করা হয়েছে</li>
+                        <li>গুগল স্ক্রিপ্ট সক্রিয় করা হয়েছে</li>
+                        <li>গুগল ড্রাইভ সংযুক্ত করা হয়েছে</li>
+                        <li>API কী সক্রিয় করা হয়েছে</li>
+                        <li>এই পৃষ্ঠাটি সম্পূর্ণ স্বয়ংক্রিয়</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="widget">
+                <div class="widget-header bangla-text">গুগল সংযোগ লিঙ্ক</div>
+                <div class="widget-content">
+                    <ul class="archive-list">
+                        <li>
+                            <a href="https://docs.google.com/forms/d/1-K1eMjH0w2-VVNh9x-qQsaJRvvt9fzruTzQ7rwdE2OE/edit" target="_blank" class="bangla-text">
+                                <i class="fab fa-google"></i> গুগল ফর্ম
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://docs.google.com/spreadsheets/d/19x6zWe8gD4b79NJhxVLIWGRYBW4XjhQ2uqG0t5zQFk0/edit" target="_blank" class="bangla-text">
+                                <i class="fas fa-table"></i> গুগল শীট
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://drive.google.com/file/d/1fCUYcw25f3daoKJMY-sEVwHKjM2JOeJO/view" target="_blank" class="bangla-text">
+                                <i class="fab fa-google-drive"></i> গুগল ড্রাইভ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <div class="confirmation" id="confirmation">
+        <!-- Confirmation messages will appear here -->
+    </div>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="bangla-text">শেষ খবর</h3>
+                <p class="bangla-text">বাংলার সেরা অনলাইন নিউজ পোর্টাল, যেখানে আপনি পাচ্ছেন সর্বশেষ ও নির্ভরযোগ্য খবর।</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="bangla-text">যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> info@seskhobor.com</li>
+                    <li><i class="fas fa-phone"></i> +৮৮০ ১৯১২ ৩৪৫৬৭৮</li>
+                    <li><i class="fas fa-map-marker-alt"></i> ১২৩ প্রেস স্ট্রিট, ঢাকা</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="bangla-text">সামাজিক যোগাযোগ</h3>
+                <div class="social-links" style="display: flex; gap: 15px; font-size: 1.5rem;">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="bangla-text">প্রযুক্তি স্ট্যাক</h3>
+                <ul class="footer-links">
+                    <li>Google Sheets API</li>
+                    <li>Google Drive</li>
+                    <li>Google Apps Script</li>
+                    <li>Google Forms</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright bangla-text">
+            &copy; ২০২৩ শেষ খবর। সর্বস্বত্ব সংরক্ষিত। API সংস্করণ: 1.0
+        </div>
+    </footer>
+
+    <script>
+        // Google configuration
+        const GOOGLE_API_KEY = 'AIzaSyD-5Pcbq4IsKFgoiqW9-fRBe05btCRrFAc';
+        const GOOGLE_SHEET_ID = '19x6zWe8gD4b79NJhxVLIWGRYBW4XjhQ2uqG0t5zQFk0';
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1-K1eMjH0w2-VVNh9x-qQsaJRvvt9fzruTzQ7rwdE2OE/formResponse';
+        const GOOGLE_DRIVE_URL = 'https://drive.google.com/uc?id=';
+        
+        // DOM elements
+        const newsGrid = document.getElementById('news-grid');
+        const newsForm = document.getElementById('news-form');
+        const breakingNews = document.getElementById('breaking-news-text');
+        const confirmation = document.getElementById('confirmation');
+        const refreshBtn = document.getElementById('refresh-news');
+        const searchBtn = document.getElementById('search-btn');
+        const searchInput = document.getElementById('search-input');
+        
+        // Initialize the page
+        function initPage() {
+            loadNewsFromSheet();
+            setupEventListeners();
+        }
+        
+        // Load news from Google Sheet
+        async function loadNewsFromSheet() {
+            try {
+                // Show loading state
+                newsGrid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin fa-2x"></i><p class="bangla-text">গুগল শীট থেকে খবর লোড হচ্ছে...</p></div>';
+                
+                // Construct the API URL
+                const sheetName = 'Sheet1';
+                const range = 'A:F';
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${GOOGLE_SHEET_ID}/values/${sheetName}!${range}?key=${GOOGLE_API_KEY}`;
+                
+                // Fetch data from Google Sheet
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                // Process the data
+                const rows = data.values;
+                if (!rows || rows.length === 0) {
+                    throw new Error('কোনো ডাটা পাওয়া যায়নি');
+                }
+                
+                // Remove header row
+                const headers = rows[0];
+                const newsData = rows.slice(1).map(row => {
+                    const newsItem = {};
+                    headers.forEach((header, index) => {
+                        newsItem[header] = row[index] || '';
+                    });
+                    return newsItem;
+                });
+                
+                // Render news
+                renderNewsGrid(newsData);
+                
+                // Set breaking news
+                if (newsData.length > 0) {
+                    breakingNews.textContent = newsData[0].Title || 'সর্বশেষ খবর';
+                }
+                
+            } catch (error) {
+                newsGrid.innerHTML = `
+                    <div class="bangla-text" style="text-align: center; padding: 40px; color: #f44336;">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        <h3 class="bangla-text">খবর লোড করতে সমস্যা হয়েছে</h3>
+                        <p class="bangla-text">${error.message}</p>
+                    </div>
+                `;
+                console.error('Error loading news:', error);
+            }
+        }
+        
+        // Render news articles in grid view
+        function renderNewsGrid(news) {
+            newsGrid.innerHTML = '';
+            
+            news.forEach(article => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'news-card';
+                
+                // Use direct image URL or default
+                const imageUrl = article.Image ? 
+                    (article.Image.startsWith('http') ? article.Image : GOOGLE_DRIVE_URL + article.Image) :
+                    `https://picsum.photos/600/400?random=${Math.random()}`;
+                
+                newsCard.innerHTML = `
+                    <div class="news-img" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${imageUrl}')"></div>
+                    <div class="news-content">
+                        <div class="news-category bangla-text">${article.Category || 'সাধারণ'}</div>
+                        <h3 class="news-title bangla-text">${article.Title || 'শিরোনাম নেই'}</h3>
+                        <p class="news-excerpt bangla-text">${article.Excerpt || 'কোনো বিবরণ নেই'}</p>
+                        <div class="news-meta">
+                            <span class="bangla-date bangla-text"><i class="far fa-calendar"></i> ${article.Date || 'তারিখ নেই'}</span>
+                            <span class="bangla-text"><i class="fas fa-user"></i> ${article.Publisher || 'অজানা'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                newsGrid.appendChild(newsCard);
+            });
+        }
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search functionality
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+            
+            // Article submission
+            newsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const title = document.getElementById('title').value;
+                const category = document.getElementById('category').value;
+                const excerpt = document.getElementById('excerpt').value;
+                const content = document.getElementById('content').value;
+                const imageUrl = document.getElementById('image-url').value;
+                const publisher = document.getElementById('publisher').value;
+                
+                // Show loading state
+                const submitBtn = newsForm.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা দেওয়া হচ্ছে...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Prepare form data
+                    const formData = new FormData();
+                    formData.append('entry.XXXXXXXXXX', title); // Replace with your form field IDs
+                    formData.append('entry.XXXXXXXXXX', category);
+                    formData.append('entry.XXXXXXXXXX', excerpt);
+                    formData.append('entry.XXXXXXXXXX', content);
+                    formData.append('entry.XXXXXXXXXX', imageUrl);
+                    formData.append('entry.XXXXXXXXXX', publisher);
+                    
+                    // Submit to Google Form
+                    const response = await fetch(GOOGLE_FORM_URL, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors'
+                    });
+                    
+                    // Show success message
+                    showConfirmation('খবরটি সফলভাবে গুগল ফর্মে জমা দেওয়া হয়েছে!');
+                    
+                    // Reset form
+                    newsForm.reset();
+                    
+                    // Reload news after 3 seconds
+                    setTimeout(() => {
+                        loadNewsFromSheet();
+                        submitBtn.innerHTML = '<i class="fas fa-upload"></i> খবর জমা দিন';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                    
+                } catch (error) {
+                    showConfirmation('খবর জমা দিতে সমস্যা হয়েছে: ' + error.message);
+                    console.error('Submission error:', error);
+                    submitBtn.innerHTML = '<i class="fas fa-upload"></i> খবর জমা দিন';
+                    submitBtn.disabled = false;
+                }
+            });
+            
+            // Refresh news
+            refreshBtn.addEventListener('click', () => {
+                showConfirmation('খবর রিফ্রেশ করা হচ্ছে...');
+                loadNewsFromSheet();
+            });
+        }
+        
+        // Search function
+        function performSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            const newsCards = document.querySelectorAll('.news-card');
+            
+            if (!query) {
+                newsCards.forEach(card => card.style.display = 'block');
+                return;
+            }
+            
+            let found = false;
+            newsCards.forEach(card => {
+                const title = card.querySelector('.news-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.news-excerpt').textContent.toLowerCase();
+                const category = card.querySelector('.news-category').textContent.toLowerCase();
+                
+                if (title.includes(query) || excerpt.includes(query) || category.includes(query)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!found) {
+                showConfirmation(`"${query}" এর জন্য কোনো খবর পাওয়া যায়নি`);
+            }
+        }
+        
+        // Show confirmation message
+        function showConfirmation(message) {
+            confirmation.textContent = message;
+            confirmation.style.display = 'block';
+            
+            setTimeout(() => {
+                confirmation.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Initialize the page when loaded
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
